@@ -1,2 +1,2 @@
-export * from './util-get-config'
+export * from './get-config'
 export * from './doc'
