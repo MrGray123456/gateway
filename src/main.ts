@@ -1,5 +1,6 @@
 import { NestFactory } from '@nestjs/core';
 import { VERSION_NEUTRAL, VersioningType, ValidationPipe } from '@nestjs/common';
+import * as cookieParser from 'cookie-parser';
 import { AppModule } from './app.module';
 import { TransformInterceptor } from './common/interceptors';
 import { AllExceptionsFilter, HttpExceptionFilter } from './common/exceptions';
@@ -13,6 +14,9 @@ async function bootstrap() {
     defaultVersion: [VERSION_NEUTRAL, '1', '2'],
     type: VersioningType.URI,
   });
+
+  // https://www.npmjs.org/package/cookie
+  app.use(cookieParser('secret', {}));
 
   // 统一响应格式
   app.useGlobalInterceptors(new TransformInterceptor());

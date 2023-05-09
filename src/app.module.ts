@@ -6,10 +6,10 @@ import type { RedisClientOptions } from 'redis';
 
 import { UserModule } from './user/user.module';
 import { getConfig } from './utils';
-import { FeishuService } from './feishu/feishu.service';
-import { FeishuController } from './feishu/feishu.controller';
 import { FeishuModule } from './feishu/feishu.module';
 import { AuthModule } from './auth/auth.module';
+import { APP_GUARD } from '@nestjs/core';
+import { JwtAuthGuard } from './auth/guards/jwt-auth.guard';
 
 const redisConfig = getConfig('REDIS_CONFIG')
 
@@ -34,7 +34,10 @@ const redisConfig = getConfig('REDIS_CONFIG')
     FeishuModule,
     AuthModule
   ],
-  providers: [FeishuService],
-  controllers: [FeishuController],
+  providers: [{
+    provide: APP_GUARD,
+    useClass: JwtAuthGuard
+  }],
+  controllers: [],
 })
 export class AppModule { }

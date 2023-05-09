@@ -1,4 +1,5 @@
 import { methodVersion } from "@/utils/request"
+import { ExecutionContext, createParamDecorator } from "@nestjs/common"
 
 // 获取用户凭证
 export const getUserToken = async ({ code, app_token }) => {
@@ -33,3 +34,8 @@ export const refreshUserToken = async ({ refresh_token, app_token }) => {
 
   return data
 }
+
+export const PayloadUser = createParamDecorator((data, ctx: ExecutionContext) => {
+  const request = ctx.switchToHttp().getRequest()
+  return request.user
+})
