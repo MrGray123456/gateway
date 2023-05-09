@@ -6,6 +6,10 @@ import type { RedisClientOptions } from 'redis';
 
 import { UserModule } from './user/user.module';
 import { getConfig } from './utils';
+import { FeishuService } from './feishu/feishu.service';
+import { FeishuController } from './feishu/feishu.controller';
+import { FeishuModule } from './feishu/feishu.module';
+import { AuthModule } from './auth/auth.module';
 
 const redisConfig = getConfig('REDIS_CONFIG')
 
@@ -26,7 +30,11 @@ const redisConfig = getConfig('REDIS_CONFIG')
       ignoreEnvFile: true,
       load: [getConfig]
     }),
-    UserModule
+    UserModule,
+    FeishuModule,
+    AuthModule
   ],
+  providers: [FeishuService],
+  controllers: [FeishuController],
 })
 export class AppModule { }

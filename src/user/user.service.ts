@@ -4,8 +4,6 @@ import { Cache } from 'cache-manager';
 import { ConfigService } from '@nestjs/config';
 
 import { BusinessException } from 'src/common/exceptions';
-import { CreateUserDto } from './dto/create-user.dto';
-import { UpdateUserDto } from './dto/update-user.dto';
 
 @Injectable()
 export class UserService {
@@ -34,23 +32,18 @@ export class UserService {
     return appToken
   }
 
-  create(createUserDto: CreateUserDto) {
-    return 'This action adds a new user';
+  createOrUpdateByFeishu(feishuInfo) {
+    return {
+      id: 'user.id',
+      username: 'user.username',
+      name: 'user.name',
+      email: 'user.email',
+      accessToken: 'feishuInfo.accessToken',
+      feishuUserId: feishuInfo.feishuUserId,
+    };
   }
 
   findAll() {
     return `This action returns all user`;
-  }
-
-  findOne(id: number) {
-    return `This action returns a #${id} user`;
-  }
-
-  update(id: number, updateUserDto: UpdateUserDto) {
-    return `This action updates a #${id} user`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} user`;
   }
 }
